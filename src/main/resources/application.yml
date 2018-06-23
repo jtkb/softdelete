@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:derby://localhost:1527/derbydb;create=true
+    driver-class-name: org.apache.derby.jdbc.ClientDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
