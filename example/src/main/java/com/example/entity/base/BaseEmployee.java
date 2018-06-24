@@ -11,10 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 import java.util.Set;
 
 @MappedSuperclass
-public abstract class BaseEmployee<P extends BaseProject>
+public abstract class BaseEmployee<P extends BaseProject> implements Serializable
 {
     @Id
     @GeneratedValue
