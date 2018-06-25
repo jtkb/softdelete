@@ -3,9 +3,13 @@ package com.example.controller;
 import com.example.dao.DeletedDao;
 import com.example.dao.EmployeeDao;
 import com.example.dao.ProjectDao;
+import com.example.dto.EmployeePatchDto;
 import com.example.entity.DeletedEmployee;
 import com.example.entity.Employee;
+import com.example.entity.EmployeeProject;
 import com.example.entity.Project;
+import com.example.repository.EmployeeRepository;
+import com.example.util.CollectionUtils;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.function.Function;
 
 @RestController
 public class EmployeeController
@@ -29,6 +34,9 @@ public class EmployeeController
 
     @Autowired
     private ProjectDao<Project> projectDao;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @ResponseBody
     @RequestMapping(path = "/employees", method = RequestMethod.POST)
@@ -50,6 +58,19 @@ public class EmployeeController
     public Employee getEmployee(@PathVariable @NotNull final Long id)
     {
         return this.employeeDao.getEmployee(id);
+    }
+
+
+    public Employee patchEmployee(@RequestBody @NotNull EmployeePatchDto employeePatchDto)
+    {
+        final Employee employee = this.employeeDao.getEmployee(employeePatchDto.getId());
+        Function<Employee, Long> foreignKey = Employee::getId;
+        CollectionUtils.updateCollections(employeePatchDto.getProjectIds(), employeeRepository, Employee::getId);
+
+
+        Function<EmployeeProject, Long> employeeFk = EmployeeProject::getEmployeeId;
+        Function<EmployeeProject, Long> projectFk = EmployeeProject::getProjectId;
+        return null;
     }
 
     @ResponseBody

@@ -17,7 +17,7 @@ import java.util.Set;
 
 @MappedSuperclass
 @Table(name = "PROJECT")
-public abstract class BaseProject<E extends BaseEmployee> implements Serializable
+public abstract class BaseProject<E extends BaseEmployee> implements Serializable, Identity<Long>, Deleted
 {
     @Id
     @GeneratedValue
