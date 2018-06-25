@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -27,12 +28,14 @@ public class CollectionUtils
         }
     }
 
-    public static <E1 extends Identity<I1> & Deleted, E2 extends Identity<I2> & Deleted, J extends Deleted & SetForeignKey<I1>, // should also extend SetForeignKey<>
-        I1 extends Serializable, I2 extends Serializable,
-        R1 extends JpaRepository<E1, I1>, R2 extends JpaRepository<E2, I2>>
-        void updateCollections(I1 fromId, List<I2> newToIds, List<J> currentJoins, Class<J> joinClazz, R1 fromRepository, R2 toRepository, Function<J, I1> getFkE1, Function<J, I1> setFk1,
-                               Function<J, I2> getFk2, Function<J, I2> setFk2, Consumer<J> setE1, Consumer<J> setE2,
-                               SetForeignKey<I1> setFK1) throws IllegalAccessException, InstantiationException
+    public static <E1 extends Identity<I1> & Deleted,
+            E2 extends Identity<I2> & Deleted,
+            J extends Deleted & SetForeignKey<I1>, // should also extend SetForeignKey<>
+            I1 extends Serializable, I2 extends Serializable,
+            R1 extends JpaRepository<E1, I1>,
+            R2 extends JpaRepository<E2, I2>>
+    void updateCollections(I1 fromId, List<I2> newToIds, List<J> currentJoins, Class<J> joinClazz, R1 fromRepository, R2 toRepository,
+                           Function<J, I1> getFkE1, Function<J, I2> getFk2, BiConsumer<J, I1> setFK1) throws IllegalAccessException, InstantiationException
     {
         for (final J joinRecord : currentJoins)
         {

@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.SetForeignKey;
 import com.example.dao.DeletedDao;
 import com.example.dao.EmployeeDao;
 import com.example.dao.ProjectDao;
@@ -9,6 +10,7 @@ import com.example.entity.Employee;
 import com.example.entity.EmployeeProject;
 import com.example.entity.Project;
 import com.example.repository.EmployeeRepository;
+import com.example.repository.ProjectRepository;
 import com.example.util.CollectionUtils;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.LongConsumer;
 
 @RestController
 public class EmployeeController
@@ -37,6 +44,9 @@ public class EmployeeController
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @ResponseBody
     @RequestMapping(path = "/employees", method = RequestMethod.POST)
@@ -70,6 +80,10 @@ public class EmployeeController
 
         Function<EmployeeProject, Long> employeeFk = EmployeeProject::getEmployeeId;
         Function<EmployeeProject, Long> projectFk = EmployeeProject::getProjectId;
+        BiConsumer<EmployeeProject, Long> setEmployeeFk = EmployeeProject::setEmployeeId;
+
+        CollectionUtils.updateCollections(1L, Arrays.asList(1L), new ArrayList<>(), EmployeeProject.class, employeeRepository, projectRepository,
+                employeeFk, projectFk, setEmployeeFk );
         return null;
     }
 

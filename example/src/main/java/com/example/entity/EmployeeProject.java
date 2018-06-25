@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import com.example.entity.base.Deleted;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "EMP_PROJ")
-public class EmployeeProject
+public class EmployeeProject implements Deleted
 {
     @Id
     @GeneratedValue
@@ -51,5 +53,17 @@ public class EmployeeProject
     public void setProjectId(final Long projectId)
     {
         this.projectId = projectId;
+    }
+
+    @Override
+    public Boolean isDeleted()
+    {
+        return null;
+    }
+
+    @Override
+    public void setDeleted(final Boolean isDeleted)
+    {
+
     }
 }
