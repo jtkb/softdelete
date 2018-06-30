@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class ProjectDaoImpl implements ProjectDao<Project>
+public class ProjectDaoImpl implements ProjectDao
 {
     @Autowired
     private ProjectRepository projectRepository;

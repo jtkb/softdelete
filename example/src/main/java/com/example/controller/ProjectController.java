@@ -20,10 +20,10 @@ import java.util.List;
 public class ProjectController
 {
     @Autowired
-    private ProjectDao<Project> projectDao;
+    private ProjectDao projectDao;
 
     @Autowired
-    private EmployeeDao<Employee> employeeDao;
+    private EmployeeDao employeeDao;
 
     @ResponseBody
     @RequestMapping(path = "/projects", method = RequestMethod.POST)
@@ -57,4 +57,5 @@ public class ProjectController
 
         return this.projectDao.updateProject(project);
     }
+
 }

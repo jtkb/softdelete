@@ -1,11 +1,8 @@
 package com.example.controller;
 
-import com.example.dao.DeletedDao;
 import com.example.dao.EmployeeDao;
 import com.example.dao.ProjectDao;
-import com.example.entity.DeletedEmployee;
 import com.example.entity.Employee;
-import com.example.entity.Project;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,13 +19,10 @@ import java.util.List;
 public class EmployeeController
 {
     @Autowired
-    private EmployeeDao<Employee> employeeDao;
+    private EmployeeDao employeeDao;
 
     @Autowired
-    private DeletedDao<DeletedEmployee, Long> deleteEmployeeDao;
-
-    @Autowired
-    private ProjectDao<Project> projectDao;
+    private ProjectDao projectDao;
 
     @ResponseBody
     @RequestMapping(path = "/employees", method = RequestMethod.POST)
@@ -52,12 +46,12 @@ public class EmployeeController
         return this.employeeDao.getEmployee(id);
     }
 
-    @ResponseBody
+    /*@ResponseBody
     @RequestMapping(path = "/employees/deleted", method = RequestMethod.GET)
     public List<DeletedEmployee> getAllDeletedEmployees()
     {
         return this.employeeDao.getAllDeletedEmployees();
-    }
+    }*/
 
     @ResponseBody
     @RequestMapping(path = "/employees/{id}", method = RequestMethod.DELETE)

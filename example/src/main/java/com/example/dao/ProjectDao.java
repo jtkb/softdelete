@@ -1,16 +1,16 @@
 package com.example.dao;
 
-import com.example.entity.base.BaseProject;
+import com.example.entity.Project;
 
 import java.util.List;
 
-public interface ProjectDao<T extends BaseProject>
+public interface ProjectDao
 {
-    T createProject(T project);
+    Project createProject(Project project);
 
-    List<T> getProjects();
+    List<Project> getProjects();
 
-    T getProject(Long id);
+    Project getProject(Long id);
 
-    T updateProject(T project);
+    Project updateProject(Project project);
 }
