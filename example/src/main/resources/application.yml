@@ -1,7 +1,9 @@
 spring:
   datasource:
-    url: jdbc:derby://localhost:1527/derbydb;create=true
+#    url: jdbc:derby://localhost:1527/derbydb;create=true
+    url: jdbc:derby://localhost:1527/derbydb
     driver-class-name: org.apache.derby.jdbc.ClientDriver
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true

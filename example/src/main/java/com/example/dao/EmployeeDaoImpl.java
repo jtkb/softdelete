@@ -1,11 +1,13 @@
 package com.example.dao;
 
 import com.example.entity.Employee;
+import com.example.repository.DepartmentEmployeeRepository;
 import com.example.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Service
@@ -13,6 +15,9 @@ public class EmployeeDaoImpl implements EmployeeDao
 {
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private DepartmentEmployeeRepository departmentEmployeeRepository;
 
     @Override
     @Transactional
@@ -47,5 +52,19 @@ public class EmployeeDaoImpl implements EmployeeDao
     public Integer deleteEmployee(final List<Long> ids)
     {
         return this.employeeRepository.softDelete(ids);
+    }
+
+    @Override
+    @Transactional
+    public Long deleteEmployeeDepartment(@NotNull final List<Long> ids)
+    {
+        Long count = 0L;
+        for (final Long id : ids)
+        {
+            departmentEmployeeRepository.deleteById(id);
+            count++;
+        }
+
+        return count;
     }
 }

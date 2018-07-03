@@ -60,4 +60,11 @@ public class EmployeeController
         return employeeDao.deleteEmployee(id);
     }
 
+    @ResponseBody
+    @RequestMapping(path = "/employeedepartment", method = RequestMethod.DELETE)
+    public Long deleteEmployeeDepartment(@RequestBody @NotNull final List<Long> id)
+    {
+            return employeeDao.deleteEmployeeDepartment(id);
+    }
+
 }
