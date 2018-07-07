@@ -16,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Set;
@@ -38,7 +37,6 @@ public class Employee implements Serializable, Identity<Long>, Deleted
     @Where(clause = "is_deleted = false")
     private Set<Project> projects;
 
-    // TODO: make this the owning entity and define the join table here
     @ManyToOne
     @Where(clause = "is_deleted = false")
     private Department department;

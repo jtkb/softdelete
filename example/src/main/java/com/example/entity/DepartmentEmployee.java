@@ -2,7 +2,6 @@ package com.example.entity;
 
 import com.example.entity.base.Deleted;
 import com.example.entity.base.Identity;
-import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +13,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "DEPARTMENT_EMPLOYEE")
-//@SQLDelete(sql = "UPDATE DEPARTMENT_EMPLOYEE SET is_deleted = true WHERE id = ?")
 public class DepartmentEmployee implements Serializable, Identity<Long>, Deleted
 {
     @Id
@@ -64,13 +62,15 @@ public class DepartmentEmployee implements Serializable, Identity<Long>, Deleted
         this.employeeId = id;
     }
 
-    public Long getDepartment()
+    public Long getDepartmentId()
     {
         return this.departmentId;
     }
 
-    public void setDepartment(final Long id)
+    public void setDepartmentId(final Long id)
     {
         this.departmentId = id;
     }
+
+
 }
