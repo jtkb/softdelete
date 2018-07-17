@@ -3,6 +3,7 @@ package com.example.entity;
 import com.example.entity.base.Deleted;
 import com.example.entity.base.Identity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.Where;
 
@@ -33,10 +34,10 @@ public class Project implements Serializable, Identity<Long>, Deleted
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "EMP_PROJ", joinColumns = @JoinColumn(name = "proj_id"), inverseJoinColumns = @JoinColumn(name = "emp_id"))
-    @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
     @Where(clause = "is_deleted = false")
     private Set<Employee> employees;
 
+    @JsonIgnore
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 

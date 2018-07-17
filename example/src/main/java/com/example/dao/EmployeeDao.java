@@ -2,12 +2,13 @@ package com.example.dao;
 
 import com.example.entity.Employee;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public interface EmployeeDao
 {
     Employee createEmployee(Employee employee);
+
+    Employee updateEmployee(Employee employee);
 
     List<Employee> getAllEmployees();
 
@@ -17,5 +18,6 @@ public interface EmployeeDao
 
     Integer deleteEmployee(List<Long> id);
 
-    Long deleteEmployeeDepartment(@NotNull List<Long> id);
+    Long deleteEmployeeDepartment(List<Long> id);
+
 }

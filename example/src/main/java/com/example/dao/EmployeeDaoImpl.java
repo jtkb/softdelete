@@ -28,6 +28,13 @@ public class EmployeeDaoImpl implements EmployeeDao
 
     @Override
     @Transactional
+    public Employee updateEmployee(final Employee employee)
+    {
+        return employeeRepository.save(employee);
+    }
+
+    @Override
+    @Transactional
     public List<Employee> getAllEmployees()
     {
         return employeeRepository.findAll();

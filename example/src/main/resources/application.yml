@@ -9,10 +9,6 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
-    properties:
-      hibernate:
-        ejb:
-          interceptor: com.example.interceptor.JoinTableInterceptor
 
 ---
 profiles: mysql

@@ -32,8 +32,6 @@ public class Department implements Serializable, Identity<Long>, Deleted
     private String name;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @Cascade({CascadeType.DETACH, CascadeType.LOCK, CascadeType.LOCK, CascadeType.MERGE, CascadeType.PERSIST,
-            CascadeType.REFRESH, CascadeType.REPLICATE, CascadeType.SAVE_UPDATE})
     @WhereJoinTable(clause = "is_deleted = false")
     @JoinTable(name = "DEPARTMENT_EMPLOYEE", joinColumns = {@JoinColumn(name = "department_id")},
             inverseJoinColumns = {@JoinColumn(name = "employee_id")})

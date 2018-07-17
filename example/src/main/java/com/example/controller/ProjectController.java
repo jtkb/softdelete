@@ -53,7 +53,7 @@ public class ProjectController
         final List<Employee> employees = this.employeeDao.getAllEmployees(employeeIds);
         final Project project = this.projectDao.getProject(projectId);
         project.setEmployees(new HashSet<>(employees));
-        employees.forEach(employee -> employee.getProjects().add(project));
+        //employees.forEach(employee -> employee.getProjects().add(project));
 
         return this.projectDao.updateProject(project);
     }

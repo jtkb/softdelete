@@ -22,35 +22,35 @@ public class DepartmentController
 
     @ResponseBody
     @RequestMapping(path = "/departments", method = RequestMethod.POST)
-    Department postDepartment(@RequestBody @NotNull Department department)
+    public Department postDepartment(@RequestBody @NotNull Department department)
     {
         return departmentDao.postDepartment(department);
     }
  
     @ResponseBody
     @RequestMapping(path = "/departments/{id}", method = RequestMethod.GET)
-    Department getDepartment(@PathVariable(name = "id") @NotNull final Long id)
+    public Department getDepartment(@PathVariable(name = "id") @NotNull final Long id)
     {
         return departmentDao.getDepartment(id);
     }
     
     @ResponseBody
     @RequestMapping(path = "/departments", method = RequestMethod.GET)
-    List<Department> getAllDepartments()
+    public List<Department> getAllDepartments()
     {
         return departmentDao.getAllDepartments();
     }
     
     @ResponseBody
     @RequestMapping(path = "/departments/{id}", method = RequestMethod.PUT)
-    Department putDepartment(@PathVariable(name = "id") @NotNull final Long id, @RequestBody @NotNull final Department department)
+    public Department putDepartment(@PathVariable(name = "id") @NotNull final Long id, @RequestBody @NotNull final Department department)
     {
         return departmentDao.putDepartment(department);
     }
 
     @ResponseBody
     @RequestMapping(path = "/departments/{id}", method = RequestMethod.PATCH)
-    Department patchDepartment(@PathVariable(name = "id") @NotNull final Long id, @RequestBody @NotNull final DepartmentPatchDto patchDto)
+    public Department patchDepartment(@PathVariable(name = "id") @NotNull final Long id, @RequestBody @NotNull final DepartmentPatchDto patchDto)
     {
         return departmentDao.patchDepartment(patchDto);
     }
