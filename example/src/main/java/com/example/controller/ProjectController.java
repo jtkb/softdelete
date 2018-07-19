@@ -4,6 +4,8 @@ import com.example.dao.EmployeeDao;
 import com.example.dao.ProjectDao;
 import com.example.entity.Employee;
 import com.example.entity.Project;
+import com.example.jsonview.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,6 +36,7 @@ public class ProjectController
 
     @ResponseBody
     @RequestMapping(path = "/projects", method = RequestMethod.GET)
+    @JsonView(Views.Project.class)
     public List<Project> getAllProjects()
     {
         return this.projectDao.getProjects();
@@ -41,6 +44,7 @@ public class ProjectController
 
     @ResponseBody
     @RequestMapping(path = "/projects/{id}", method = RequestMethod.GET)
+    @JsonView(Views.Project.class)
     public Project getProject(@PathVariable @NotNull final Long id)
     {
         return this.projectDao.getProject(id);
@@ -48,6 +52,7 @@ public class ProjectController
 
     @ResponseBody
     @RequestMapping(path = "/projects/{id}/employees", method = RequestMethod.PUT)
+    @JsonView(Views.Project.class)
     public Project setEmployees(@PathVariable(name = "id") @NotNull final Long projectId, @RequestBody @NotNull final List<Long> employeeIds)
     {
         final List<Employee> employees = this.employeeDao.getAllEmployees(employeeIds);

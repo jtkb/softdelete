@@ -2,6 +2,8 @@ package com.example.entity;
 
 import com.example.entity.base.Deleted;
 import com.example.entity.base.Identity;
+import com.example.jsonview.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.SQLDelete;
@@ -26,9 +28,11 @@ public class Department implements Serializable, Identity<Long>, Deleted
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.Employee.class, Views.Department.class})
     private Long id;
 
     @Column(name = "name")
+    @JsonView({Views.Employee.class,Views.Department.class})
     private String name;
 
     @OneToMany(fetch = FetchType.EAGER)
@@ -36,9 +40,11 @@ public class Department implements Serializable, Identity<Long>, Deleted
     @JoinTable(name = "DEPARTMENT_EMPLOYEE", joinColumns = {@JoinColumn(name = "department_id")},
             inverseJoinColumns = {@JoinColumn(name = "employee_id")})
     @SQLDelete(sql = "UPDATE DEPARTMENT_EMPLOYEE SET is_deleted = true where department_id = ? and employee_id = ? and is_deleted = false")
+    @JsonView(Views.Department.class)
     private Set<Employee> departmentMembers;
 
     @Column(name = "is_deleted", nullable = false)
+    @JsonView(Views.Department.class)
     private Boolean isDeleted;
 
     @Override

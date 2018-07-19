@@ -2,7 +2,9 @@ package com.example.entity;
 
 import com.example.entity.base.Deleted;
 import com.example.entity.base.Identity;
+import com.example.jsonview.Views;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.hibernate.annotations.WhereJoinTable;
@@ -27,37 +29,42 @@ public class Employee implements Serializable//, Identity<Long>, Deleted
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.Employee.class, Views.Department.class, Views.Project.class})
     private Long id;
 
     @Column(name = "NAME")
+    @JsonView({Views.Employee.class, Views.Department.class, Views.Project.class})
     private String name;
 
     @ManyToOne
+    @JoinTable(name = "DEPARTMENT_EMPLOYEE", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "department_id"))
     @Where(clause = "is_deleted = false")
+    @JsonView(Views.Employee.class)
     private Department department;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "EMP_QUAL", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "QUALIFICATION_ID"))
     @WhereJoinTable(clause = "IS_DELETED = false")
     @SQLDelete(sql = "UPDATE `EMP_QUAL` SET IS_DELETED = true where EMPLOYEE_ID = ? and QUALIFICATION_ID = ? and IS_DELETED = False")
+    @JsonView(Views.Employee.class)
     private Set<Qualification> qualifications;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "EMP_PROJ", joinColumns = @JoinColumn(name = "emp_id"), inverseJoinColumns = @JoinColumn(name = "proj_id"))
     @Where(clause = "is_deleted = false")
+    @JsonView(Views.Employee.class)
     private Set<Project> projects;
 
     @JsonIgnore
     @Column(name = "is_deleted", nullable = false)
+    @JsonView(Views.Employee.class)
     private Boolean isDeleted = false;
 
-    //@Override
     public Long getId()
     {
         return this.id;
     }
 
-    //@Override
     public void setId(final Long id)
     {
         this.id = id;

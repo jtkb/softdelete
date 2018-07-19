@@ -2,8 +2,10 @@ package com.example.entity;
 
 import com.example.entity.base.Deleted;
 import com.example.entity.base.Identity;
+import com.example.jsonview.Views;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.Where;
 
@@ -27,18 +29,22 @@ public class Project implements Serializable, Identity<Long>, Deleted
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.Project.class, Views.Employee.class})
     private Long id;
 
     @Column(name = "name")
+    @JsonView({Views.Project.class, Views.Employee.class})
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "EMP_PROJ", joinColumns = @JoinColumn(name = "proj_id"), inverseJoinColumns = @JoinColumn(name = "emp_id"))
     @Where(clause = "is_deleted = false")
+    @JsonView(Views.Project.class)
     private Set<Employee> employees;
 
     @JsonIgnore
     @Column(name = "is_deleted")
+    @JsonView(Views.Project.class)
     private Boolean isDeleted;
 
     public Long getId()

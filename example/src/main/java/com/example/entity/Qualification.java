@@ -1,7 +1,9 @@
 package com.example.entity;
 
 import com.example.entity.base.Identity;
+import com.example.jsonview.Views;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,13 +18,15 @@ public class Qualification implements Identity<Long>
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.Employee.class, Views.Qualification.class})
     private Long id;
 
     @Column(name = "NAME")
+    @JsonView({Views.Employee.class, Views.Qualification.class})
     private String name;
 
-    @JsonIgnore
     @Column(name = "IS_DELETED")
+    @JsonView(Views.Qualification.class)
     private Boolean isDeleted;
 
     @Override

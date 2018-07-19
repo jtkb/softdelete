@@ -3,6 +3,8 @@ package com.example.controller;
 import com.example.dao.EmployeeDao;
 import com.example.dao.ProjectDao;
 import com.example.entity.Employee;
+import com.example.jsonview.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,6 +30,7 @@ public class EmployeeController
 
     @ResponseBody
     @RequestMapping(path = "/employees", method = RequestMethod.POST)
+    @JsonView(Views.Employee.class)
     public Employee createEmployee(@RequestBody @NotNull Employee employee)
     {
         return this.employeeDao.createEmployee(employee);
@@ -35,6 +38,7 @@ public class EmployeeController
 
     @ResponseBody
     @RequestMapping(path = "/employees/{id}", method = RequestMethod.PUT)
+    @JsonView(Views.Employee.class)
     public Employee putEmployee(@PathVariable(name = "id") @NotNull final Long id, @RequestBody @NotNull final Employee employee)
     {
         return this.employeeDao.updateEmployee(employee);
@@ -43,28 +47,23 @@ public class EmployeeController
     @ResponseBody
     @RequestMapping(path = "/employees", method = RequestMethod.GET)
     @ApiOperation(value = "Get all employees.")
+    @JsonView(Views.Employee.class)
     public List<Employee> getAllEmployees()
     {
         return this.employeeDao.getAllEmployees();
     }
 
     @ResponseBody
-    @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
     @RequestMapping(path = "/employees/{id}", method = RequestMethod.GET)
+    @JsonView(Views.Employee.class)
     public Employee getEmployee(@PathVariable @NotNull final Long id)
     {
         return this.employeeDao.getEmployee(id);
     }
 
-    /*@ResponseBody
-    @RequestMapping(path = "/employees/deleted", method = RequestMethod.GET)
-    public List<DeletedEmployee> getAllDeletedEmployees()
-    {
-        return this.employeeDao.getAllDeletedEmployees();
-    }*/
-
     @ResponseBody
     @RequestMapping(path = "/employees/{id}", method = RequestMethod.DELETE)
+    @JsonView(Views.Employee.class)
     public Integer deleteUser(@PathVariable(name = "id") @NotNull final List<Long> id)
     {
         return employeeDao.deleteEmployee(id);
@@ -72,6 +71,7 @@ public class EmployeeController
 
     @ResponseBody
     @RequestMapping(path = "/employeedepartment", method = RequestMethod.DELETE)
+    @JsonView(Views.Employee.class)
     public Long deleteEmployeeDepartment(@RequestBody @NotNull final List<Long> id)
     {
             return employeeDao.deleteEmployeeDepartment(id);

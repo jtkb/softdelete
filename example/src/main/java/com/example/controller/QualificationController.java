@@ -2,6 +2,8 @@ package com.example.controller;
 
 import com.example.dao.QualificationDao;
 import com.example.entity.Qualification;
+import com.example.jsonview.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +23,7 @@ public class QualificationController
 
     @ResponseBody
     @RequestMapping(path = "/qualifications", method = RequestMethod.POST)
+    @JsonView(Views.Qualification.class)
     Qualification postQualification(@RequestBody @NotNull final Qualification qualification)
     {
         return this.qualificationDao.createQualification(qualification);
@@ -28,6 +31,7 @@ public class QualificationController
 
     @ResponseBody
     @RequestMapping(path = "/qualifications/{id}", method = RequestMethod.GET)
+    @JsonView(Views.Qualification.class)
     Qualification getQualification(@PathVariable(name = "id") @NotNull final Long id)
     {
         return this.qualificationDao.getQualification(id);
@@ -35,6 +39,7 @@ public class QualificationController
 
     @ResponseBody
     @RequestMapping(path = "/qualifications", method = RequestMethod.GET)
+    @JsonView(Views.Qualification.class)
     List<Qualification> getAllQualifications()
     {
         return this.qualificationDao.getQualifications();
@@ -42,6 +47,7 @@ public class QualificationController
 
     @ResponseBody
     @RequestMapping(path = "/qualifications/{id}", method = RequestMethod.PUT)
+    @JsonView(Views.Qualification.class)
     Qualification putQualification(@PathVariable(name = "id") @NotNull final Long id, @RequestBody @NotNull final Qualification qualification)
     {
         return this.qualificationDao.updateQualification(qualification);
