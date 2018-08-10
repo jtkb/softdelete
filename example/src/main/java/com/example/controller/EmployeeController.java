@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class EmployeeController
     @ResponseBody
     @RequestMapping(path = "/employees", method = RequestMethod.POST)
     @JsonView(Views.Employee.class)
-    public Employee createEmployee(@RequestBody @NotNull Employee employee)
+    public Employee createEmployee(@RequestBody @NotNull @Valid Employee employee)
     {
         return this.employeeDao.createEmployee(employee);
     }

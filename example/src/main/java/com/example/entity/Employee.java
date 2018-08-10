@@ -1,8 +1,8 @@
 package com.example.entity;
 
-import com.example.entity.base.Deleted;
-import com.example.entity.base.Identity;
 import com.example.jsonview.Views;
+import com.example.validation.annotation.HasUniqueConstraints;
+import com.example.validation.annotation.UniqueConstraint;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.SQLDelete;
@@ -25,6 +25,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "EMPLOYEE")
+@HasUniqueConstraints
 public class Employee implements Serializable//, Identity<Long>, Deleted
 {
     @Id
@@ -33,8 +34,14 @@ public class Employee implements Serializable//, Identity<Long>, Deleted
     private Long id;
 
     @Column(name = "NAME")
+    @UniqueConstraint
     @JsonView({Views.Employee.class, Views.Department.class, Views.Project.class})
     private String name;
+
+    @Column(name = "SKILL")
+    @UniqueConstraint
+    @JsonView({Views.Employee.class, Views.Department.class, Views.Project.class})
+    private String skill;
 
     @ManyToOne
     @JoinTable(name = "DEPARTMENT_EMPLOYEE", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "department_id"))
@@ -56,6 +63,7 @@ public class Employee implements Serializable//, Identity<Long>, Deleted
     private Set<Project> projects;
 
     @JsonIgnore
+    @UniqueConstraint(isSoftDeleteFlag = true)
     @Column(name = "is_deleted", nullable = false)
     @JsonView(Views.Employee.class)
     private Boolean isDeleted = false;
@@ -78,6 +86,16 @@ public class Employee implements Serializable//, Identity<Long>, Deleted
     public void setName(final String name)
     {
         this.name = name;
+    }
+
+    public String getSkill()
+    {
+        return skill;
+    }
+
+    public void setSkill(final String skill)
+    {
+        this.skill = skill;
     }
 
     public Set<Project> getProjects()
