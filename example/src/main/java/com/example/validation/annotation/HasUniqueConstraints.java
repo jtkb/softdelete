@@ -19,4 +19,10 @@ public @interface HasUniqueConstraints
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
+    Class<?> entityClass() default Void.class;
+
+    String identityFieldName() default "";
+
+    String softDeleteField() default "";
 }

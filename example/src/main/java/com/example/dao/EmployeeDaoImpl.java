@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import com.example.dto.EmployeePatchDto;
 import com.example.entity.Employee;
 import com.example.repository.DepartmentEmployeeRepository;
 import com.example.repository.EmployeeRepository;
@@ -73,5 +74,24 @@ public class EmployeeDaoImpl implements EmployeeDao
         }
 
         return count;
+    }
+
+    @Override
+    @Transactional
+    public Employee patchEmployee(final EmployeePatchDto employeePatchDto)
+    {
+        final Employee employee = employeeRepository.getOne(employeePatchDto.getId());
+        boolean isModified = false;
+        if (employeePatchDto.getName() != null)
+        {
+            employee.setName(employeePatchDto.getName());
+            isModified = true;
+        }
+        if (employeePatchDto.getSkill() != null)
+        {
+            employee.setSkill(employeePatchDto.getSkill());
+            isModified = true;
+        }
+        return isModified ? employeeRepository.save(employee) : employee;
     }
 }

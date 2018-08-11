@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.dao.EmployeeDao;
 import com.example.dao.ProjectDao;
+import com.example.dto.EmployeePatchDto;
 import com.example.entity.Employee;
 import com.example.jsonview.Views;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -76,6 +77,14 @@ public class EmployeeController
     public Long deleteEmployeeDepartment(@RequestBody @NotNull final List<Long> id)
     {
             return employeeDao.deleteEmployeeDepartment(id);
+    }
+
+    @ResponseBody
+    @JsonView(Views.Employee.class)
+    @RequestMapping(path = "/employee/{id}", method = RequestMethod.PATCH)
+    Employee patchEmployee(@RequestBody @NotNull @Valid final EmployeePatchDto employeePatchDto)
+    {
+        return employeeDao.patchEmployee(employeePatchDto);
     }
 
 }

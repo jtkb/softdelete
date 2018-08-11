@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import com.example.dto.EmployeePatchDto;
 import com.example.entity.Employee;
 
 import java.util.List;
@@ -19,5 +20,7 @@ public interface EmployeeDao
     Integer deleteEmployee(List<Long> id);
 
     Long deleteEmployeeDepartment(List<Long> id);
+
+    Employee patchEmployee(EmployeePatchDto employeePatchDto);
 
 }

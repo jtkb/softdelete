@@ -12,6 +12,8 @@ public @interface UniqueConstraint
 {
     String message() default "Properties are not unique";
 
+    String propertyName() default "";
+
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
